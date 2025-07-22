@@ -4,13 +4,15 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "react-router dev",
-    "start": "react-router-serve ./build/server/index.js",
+    "dev": "NODE_OPTIONS='--import ./instrument.server.mjs' react-router dev",
+"start": "NODE_OPTIONS='--import ./instrument.server.mjs' react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
+    "@sentry/profiling-node": "^9.40.0",
+    "@sentry/react-router": "^9.40.0",
     "@syncfusion/ej2-base": "^30.1.38",
     "@syncfusion/ej2-react-buttons": "^30.1.37",
     "@syncfusion/ej2-react-dropdowns": "^30.1.39",
