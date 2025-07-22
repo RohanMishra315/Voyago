@@ -1,55 +1,20 @@
 import { Header, StatsCard, TripCard } from "components"
+import { getUser } from "~/appwrite/auth";
 import { dashboardStats, user, allTrips } from "~/constants";
+import type { Route } from "./+types/dashboard";
 
-const dashboard = () => {
-  const user = {name: 'Rohan'};
-  const dashboardStats = {
-    totalUsers: 4544,
-    usersJoined: {currentMonth: 21, lastMonth: 234},
-    totalTrips: 323,
-    tripsCreated: {currentMonth: 148, lastMonth: 32},
-    userRole: {total: 23, currentMonth: 32, lastMonth: 23}
-  }
+const {totalUsers, usersJoined, totalTrips, tripsCreated, userRole} = dashboardStats;
 
-  const allTrips = [{
-      id: 1,
-      name: "Tropical Rewind",
-      imageUrls: ["/assets/images/sample1.jpg"],
-      itinerary: [{ location: "Thailand" }],
-      tags: ["Adventure", "Culture"],
-      travelStyle: "Solo",
-      estimatedPrice: "$1,000",
-    },
-    {
-      id: 2,
-      name: "French Reverie",
-      imageUrls: ["/assets/images/sample2.jpg"],
-      itinerary: [{ location: "Paris" }],
-      tags: ["Relaxation", "Culinary"],
-      travelStyle: "Family",
-      estimatedPrice: "$2,000",
-    },
-    {
-      id: 3,
-      name: "Zen Break",
-      imageUrls: ["/assets/images/sample3.jpg"],
-      itinerary: [{ location: "Japan" }],
-      tags: ["Shopping", "Luxury"],
-      travelStyle: "Couple",
-      estimatedPrice: "$3,000",
-    },
-    {
-      id: 4,
-      name: "Adventure in Westeros",
-      imageUrls: ["/assets/images/sample4.jpg"],
-      itinerary: [{ location: "Croatia" }],
-      tags: ["Historical", "Culture"],
-      travelStyle: "Friends",
-      estimatedPrice: "$4,000",
-    },
-    ];
 
-  const {totalUsers, usersJoined, totalTrips, tripsCreated, userRole} = dashboardStats;
+
+export const clientLoader = async () => await getUser();
+
+
+const dashboard = ({loaderData}: Route.ComponentProps) => {
+    const user = loaderData as User | null;
+  
+
+  
   return (
     <main className="dashboard wrapper">
       <Header title={`Welcome ${user?.name ?? 'Guest'} 👋 `} description="track activity, trends and popular destinations in real time" />
